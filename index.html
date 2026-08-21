@@ -8,7 +8,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--navy:#1a3a5c;--navy-light:#e8eff7}
 body{font-family:system-ui,-apple-system,sans-serif;background:#f4f6f9;min-height:100vh;padding:2rem}
-.wrap{max-width:1050px;margin:0 auto}
+.wrap{max-width:1080px;margin:0 auto}
 .header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding:1.25rem 1.5rem;background:#fff;border-radius:12px;border:0.5px solid #e0e4ea}
 .brand{display:flex;align-items:center;gap:12px}
 .brand-dot{width:36px;height:36px;border-radius:8px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:600}
@@ -24,13 +24,19 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f4f6f9;min-heigh
 .prog-label{display:flex;justify-content:space-between;font-size:13px;color:#6b7280;margin-bottom:10px;font-weight:500}
 .prog-bar{height:8px;border-radius:4px;background:#f0f2f5;overflow:hidden}
 .prog-fill{height:100%;border-radius:4px;background:var(--navy);transition:width 0.5s ease}
+.filters{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
+.fchip{font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;border:0.5px solid #d1d5db;background:#fff;color:#6b7280;cursor:pointer;transition:all 0.15s}
+.fchip:hover{border-color:#1a3a5c;color:#1a3a5c}
+.fchip.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 .table-wrap{background:#fff;border:0.5px solid #e0e4ea;border-radius:12px;overflow:hidden}
-.table-head{display:grid;grid-template-columns:3fr 2fr 1fr 1.2fr 1.5fr;padding:10px 18px;background:#f8f9fb;border-bottom:0.5px solid #e0e4ea}
+.table-head{display:grid;grid-template-columns:2.5fr 1.8fr 0.8fr 1.2fr 1.8fr;padding:10px 18px;background:#f8f9fb;border-bottom:0.5px solid #e0e4ea}
 .th{font-size:11px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:0.5px}
-.row{display:grid;grid-template-columns:3fr 2fr 1fr 1.2fr 1.5fr;padding:13px 18px;border-bottom:0.5px solid #f0f2f5;align-items:center;transition:background 0.12s}
+.row{display:grid;grid-template-columns:2.5fr 1.8fr 0.8fr 1.2fr 1.8fr;padding:13px 18px;border-bottom:0.5px solid #f0f2f5;align-items:center;transition:background 0.12s}
 .row:last-child{border-bottom:none}
 .row:hover{background:#fafbfc}
+.row.atrasado{border-left:3px solid #ef4444;padding-left:15px}
 .area-name{font-size:13px;font-weight:500;color:#1a1a1a;line-height:1.4}
+.atraso-tag{display:inline-block;font-size:10px;font-weight:500;background:#fee2e2;color:#991b1b;padding:2px 7px;border-radius:10px;margin-top:3px}
 .chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 11px;border-radius:20px;cursor:pointer;border:none;outline:none;transition:opacity 0.15s,transform 0.1s;user-select:none;white-space:nowrap}
 .chip:hover{opacity:0.8}.chip:active{transform:scale(0.97)}
 .chip.pendente{background:#fef3c7;color:#92400e}
@@ -40,14 +46,43 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f4f6f9;min-heigh
 .dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
 .date-cell{font-size:12px;color:#6b7280}
 .resp-cell{font-size:12px;color:#374151;line-height:1.4}
+.entrega-info{font-size:11px;color:#15803d;font-weight:500;line-height:1.4}
+.entrega-hora{font-size:10px;color:#6b7280;font-weight:400}
 .obs-input{font-size:12px;color:#6b7280;background:transparent;border:none;outline:none;width:100%;padding:4px 6px;border-radius:4px;cursor:text}
 .obs-input:focus{background:#f0f4ff;color:#1a1a1a}
 .obs-input::placeholder{color:#d1d5db}
 .footer{margin-top:1rem;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#9ca3af;padding:0 4px}
-.saving{color:#b45309;font-weight:500}
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:100;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.modal{background:#fff;border-radius:14px;padding:1.75rem;width:360px;box-shadow:0 12px 32px rgba(0,0,0,0.15)}
+.modal-title{font-size:15px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
+.modal-sub{font-size:12px;color:#6b7280;margin-bottom:1.25rem;line-height:1.5}
+.modal-input{width:100%;padding:9px 12px;border:0.5px solid #d1d5db;border-radius:8px;font-size:13px;outline:none;margin-bottom:4px;font-family:inherit;transition:border-color 0.15s}
+.modal-input:focus{border-color:var(--navy)}
+.modal-err{font-size:11px;color:#b91c1c;margin-bottom:12px;min-height:16px}
+.modal-btns{display:flex;gap:8px;justify-content:flex-end}
+.btn-cancel{padding:8px 16px;border:0.5px solid #d1d5db;border-radius:8px;background:transparent;font-size:12px;cursor:pointer;color:#374151;font-family:inherit}
+.btn-confirm{padding:8px 18px;border:none;border-radius:8px;background:var(--navy);color:#fff;font-size:12px;cursor:pointer;font-weight:500;font-family:inherit}
+.btn-cancel:hover{background:#f9fafb}
+.btn-confirm:hover{background:#152e4a}
+.empty{padding:2rem;text-align:center;color:#9ca3af;font-size:13px}
 </style>
 </head>
 <body>
+
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-title">Confirmar entrega</div>
+    <div class="modal-sub">Informe seu nome para registrar a entrega com data e horário.</div>
+    <input class="modal-input" id="modal-name" type="text" placeholder="Seu nome completo" autocomplete="name"/>
+    <div class="modal-err" id="modal-err"></div>
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="cancelModal()">Cancelar</button>
+      <button class="btn-confirm" onclick="confirmModal()">Confirmar entrega</button>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
   <div class="header">
     <div class="brand">
@@ -57,14 +92,14 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f4f6f9;min-heigh
         <div class="brand-sub">Controle de entregas por área</div>
       </div>
     </div>
-    <div class="month-badge">Agosto / 2026</div>
+    <div class="month-badge">Setembro / 2026</div>
   </div>
 
   <div class="cards">
     <div class="card"><div class="card-label">Total de atividades</div><div class="card-val" id="tot">—</div></div>
     <div class="card"><div class="card-label">Entregues</div><div class="card-val green" id="cnt-entregue">—</div></div>
     <div class="card"><div class="card-label">Em andamento</div><div class="card-val amber" id="cnt-andamento">—</div></div>
-    <div class="card"><div class="card-label">Pendentes</div><div class="card-val red" id="cnt-pendente">—</div></div>
+    <div class="card"><div class="card-label">Pendentes / Atrasadas</div><div class="card-val red" id="cnt-pendente">—</div></div>
   </div>
 
   <div class="prog-wrap">
@@ -75,19 +110,21 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f4f6f9;min-heigh
     <div class="prog-bar"><div class="prog-fill" id="fill" style="width:0%"></div></div>
   </div>
 
+  <div class="filters" id="filters"></div>
+
   <div class="table-wrap">
     <div class="table-head">
       <div class="th">Atividade</div>
       <div class="th">Área responsável</div>
       <div class="th">Prazo</div>
       <div class="th">Status</div>
-      <div class="th">Observação</div>
+      <div class="th">Entrega / Observação</div>
     </div>
-    <div id="rows"><div style="padding:2rem;text-align:center;color:#9ca3af;font-size:13px;">Carregando...</div></div>
+    <div id="rows"><div class="empty">Carregando...</div></div>
   </div>
 
   <div class="footer">
-    <span>Clique no status para alterá-lo · Observação é editável</span>
+    <span>Clique no status para alterá-lo</span>
     <span id="last-upd"></span>
   </div>
 </div>
@@ -95,72 +132,147 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f4f6f9;min-heigh
 <script>
 const cycle={pendente:"andamento",andamento:"entregue",entregue:"bloqueado",bloqueado:"pendente"};
 const label={pendente:"Pendente",andamento:"Em andamento",entregue:"Entregue",bloqueado:"Bloqueado"};
+const FILTERS=[
+  {key:"todas",label:"Todas",match:()=>true},
+  {key:"controladoria",label:"Controladoria",match:r=>r.toLowerCase().includes("controladoria")},
+  {key:"financeiro",label:"Financeiro",match:r=>r.toLowerCase().includes("financeiro")||r.toLowerCase().includes("car")},
+  {key:"gente",label:"Gente e Gestão",match:r=>r.toLowerCase().includes("gente")},
+  {key:"po",label:"Planejamento",match:r=>r.toLowerCase().includes("planejamento")},
+  {key:"outros",label:"Outros",match:r=>!r.toLowerCase().includes("controladoria")&&!r.toLowerCase().includes("financeiro")&&!r.toLowerCase().includes("car")&&!r.toLowerCase().includes("gente")&&!r.toLowerCase().includes("planejamento")},
+];
+
 let areas=[];
+let activeFilter="todas";
+let pendingToggleIndex=null;
 let obsTimers={};
 
-async function load(){
-  try{
-    const r=await fetch('/api/status');
-    areas=await r.json();
-    render();
-  }catch(e){
-    document.getElementById('rows').innerHTML='<div style="padding:2rem;text-align:center;color:#b91c1c;font-size:13px;">Erro ao carregar dados.</div>';
-  }
+function parseDate(prazo){
+  const part=prazo.replace(/\d+-/,"");
+  const[d,m]=part.split("/");
+  return new Date(2026,parseInt(m)-1,parseInt(d));
+}
+function isAtrasado(a){
+  if(a.status==="entregue") return false;
+  const today=new Date();today.setHours(0,0,0,0);
+  try{return parseDate(a.prazo)<today;}catch{return false;}
+}
+function diasAtraso(a){
+  const today=new Date();today.setHours(0,0,0,0);
+  try{return Math.round((today-parseDate(a.prazo))/86400000);}catch{return 0;}
 }
 
 function recalc(){
-  const e=areas.filter(a=>a.status==="entregue").length;
-  const an=areas.filter(a=>a.status==="andamento").length;
-  const p=areas.filter(a=>a.status==="pendente"||a.status==="bloqueado").length;
-  document.getElementById("tot").textContent=areas.length;
+  const fn=FILTERS.find(f=>f.key===activeFilter).match;
+  const vis=areas.filter(a=>fn(a.resp));
+  const e=vis.filter(a=>a.status==="entregue").length;
+  const an=vis.filter(a=>a.status==="andamento").length;
+  const p=vis.filter(a=>a.status==="pendente"||a.status==="bloqueado").length;
+  document.getElementById("tot").textContent=vis.length;
   document.getElementById("cnt-entregue").textContent=e;
   document.getElementById("cnt-andamento").textContent=an;
   document.getElementById("cnt-pendente").textContent=p;
-  const pct=Math.round((e/areas.length)*100);
+  const pct=vis.length?Math.round(e/vis.length*100):0;
   document.getElementById("pct").textContent=pct+"%";
   document.getElementById("fill").style.width=pct+"%";
   const now=new Date();
   document.getElementById("last-upd").textContent="Atualizado às "+now.getHours().toString().padStart(2,"0")+":"+now.getMinutes().toString().padStart(2,"0");
 }
 
-function render(){
-  const wrap=document.getElementById("rows");
+function renderFilters(){
+  const wrap=document.getElementById("filters");
   wrap.innerHTML="";
-  areas.forEach((a,i)=>{
+  FILTERS.forEach(f=>{
+    const btn=document.createElement("button");
+    btn.className="fchip"+(activeFilter===f.key?" active":"");
+    btn.textContent=f.label;
+    btn.onclick=()=>{activeFilter=f.key;renderFilters();renderRows();};
+    wrap.appendChild(btn);
+  });
+}
+
+function renderRows(){
+  const fn=FILTERS.find(f=>f.key===activeFilter).match;
+  const wrap=document.getElementById("rows");
+  const vis=areas.filter(a=>fn(a.resp));
+  if(!vis.length){wrap.innerHTML='<div class="empty">Nenhuma atividade encontrada.</div>';recalc();return;}
+  wrap.innerHTML="";
+  vis.forEach(a=>{
+    const i=areas.indexOf(a);
+    const atras=isAtrasado(a);
     const row=document.createElement("div");
-    row.className="row";
+    row.className="row"+(atras?" atrasado":"");
+    const entregaHtml=a.status==="entregue"&&a.entregue_por
+      ?`<div class="entrega-info">${a.entregue_por}<br><span class="entrega-hora">${a.entregue_em}</span></div>`
+      :`<input class="obs-input" value="${(a.obs||'').replace(/"/g,'&quot;')}" placeholder="Observação..." oninput="scheduleObs(${i},this.value)"/>`;
     row.innerHTML=`
-      <div class="area-name">${a.name}</div>
+      <div><div class="area-name">${a.name}</div>${atras?`<span class="atraso-tag">Atrasado ${diasAtraso(a)}d</span>`:""}</div>
       <div class="resp-cell">${a.resp}</div>
       <div class="date-cell">${a.prazo}</div>
-      <div>
-        <button class="chip ${a.status}" id="chip-${i}" onclick="toggle(${i})">
-          <span class="dot"></span>${label[a.status]}
-        </button>
-      </div>
-      <div><input class="obs-input" id="obs-${i}" value="${a.obs||''}" placeholder="Observação..." oninput="scheduleObs(${i},this.value)"/></div>
+      <div><button class="chip ${a.status}" onclick="toggle(${i})"><span class="dot"></span>${label[a.status]}</button></div>
+      <div>${entregaHtml}</div>
     `;
     wrap.appendChild(row);
   });
   recalc();
 }
 
-async function toggle(i){
-  areas[i].status=cycle[areas[i].status];
-  const btn=document.getElementById('chip-'+i);
-  btn.className='chip '+areas[i].status;
-  btn.innerHTML=`<span class="dot"></span>${label[areas[i].status]}`;
-  recalc();
-  await fetch('/api/status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({index:i,field:'status',value:areas[i].status})});
+function toggle(i){
+  const next=cycle[areas[i].status];
+  if(next==="entregue"){
+    pendingToggleIndex=i;
+    document.getElementById("modal-name").value="";
+    document.getElementById("modal-err").textContent="";
+    document.getElementById("overlay").classList.add("show");
+    setTimeout(()=>document.getElementById("modal-name").focus(),50);
+  } else {
+    areas[i].status=next;
+    if(next!=="entregue"){areas[i].entregue_por="";areas[i].entregue_em="";}
+    renderRows();
+    save(i,{status:next,entregue_por:"",entregue_em:""});
+  }
+}
+
+function cancelModal(){
+  document.getElementById("overlay").classList.remove("show");
+  pendingToggleIndex=null;
+}
+
+function confirmModal(){
+  const nome=document.getElementById("modal-name").value.trim();
+  if(!nome){document.getElementById("modal-err").textContent="Informe seu nome para continuar.";return;}
+  const i=pendingToggleIndex;
+  const now=new Date();
+  const ts=now.toLocaleDateString("pt-BR")+` às ${now.getHours().toString().padStart(2,"0")}:${now.getMinutes().toString().padStart(2,"0")}`;
+  areas[i].status="entregue";areas[i].entregue_por=nome;areas[i].entregue_em=ts;
+  document.getElementById("overlay").classList.remove("show");
+  pendingToggleIndex=null;
+  renderRows();
+  save(i,{status:"entregue",entregue_por:nome,entregue_em:ts});
 }
 
 function scheduleObs(i,val){
   areas[i].obs=val;
   clearTimeout(obsTimers[i]);
-  obsTimers[i]=setTimeout(async()=>{
-    await fetch('/api/status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({index:i,field:'obs',value:val})});
-  },800);
+  obsTimers[i]=setTimeout(()=>save(i,{obs:val}),800);
 }
+
+async function save(index,fields){
+  await fetch('/api/status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({index,fields})});
+}
+
+async function load(){
+  try{
+    const r=await fetch('/api/status');
+    areas=await r.json();
+    renderFilters();
+    renderRows();
+  }catch{
+    document.getElementById("rows").innerHTML='<div class="empty" style="color:#b91c1c">Erro ao carregar dados.</div>';
+  }
+}
+
+document.getElementById("modal-name").addEventListener("keydown",e=>{if(e.key==="Enter")confirmModal();});
+document.getElementById("overlay").addEventListener("click",e=>{if(e.target===document.getElementById("overlay"))cancelModal();});
 
 load();
 setInterval(load,30000);
