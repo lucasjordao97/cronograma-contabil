@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Fechamento Contábil — Priner</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#1a3a5c;--navy-light:#e8eff7}
+body{font-family:system-ui,-apple-system,sans-serif;background:#f4f6f9;min-height:100vh;padding:2rem}
+.wrap{max-width:1050px;margin:0 auto}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;padding:1.25rem 1.5rem;background:#fff;border-radius:12px;border:0.5px solid #e0e4ea}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-dot{width:36px;height:36px;border-radius:8px;background:var(--navy);display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:600}
+.brand-name{font-size:16px;font-weight:600;color:#1a1a1a}
+.brand-sub{font-size:12px;color:#6b7280;margin-top:1px}
+.month-badge{font-size:13px;font-weight:500;padding:6px 14px;border-radius:6px;background:var(--navy-light);color:var(--navy);border:0.5px solid #c5d8ee}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.5rem}
+.card{background:#fff;border-radius:10px;padding:16px 18px;border:0.5px solid #e0e4ea}
+.card-label{font-size:11px;color:#6b7280;margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px}
+.card-val{font-size:28px;font-weight:600;color:#1a1a1a}
+.card-val.green{color:#15803d}.card-val.amber{color:#b45309}.card-val.red{color:#b91c1c}
+.prog-wrap{background:#fff;border-radius:10px;padding:16px 18px;border:0.5px solid #e0e4ea;margin-bottom:1.5rem}
+.prog-label{display:flex;justify-content:space-between;font-size:13px;color:#6b7280;margin-bottom:10px;font-weight:500}
+.prog-bar{height:8px;border-radius:4px;background:#f0f2f5;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;background:var(--navy);transition:width 0.5s ease}
+.table-wrap{background:#fff;border:0.5px solid #e0e4ea;border-radius:12px;overflow:hidden}
+.table-head{display:grid;grid-template-columns:3fr 2fr 1fr 1.2fr 1.5fr;padding:10px 18px;background:#f8f9fb;border-bottom:0.5px solid #e0e4ea}
+.th{font-size:11px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:0.5px}
+.row{display:grid;grid-template-columns:3fr 2fr 1fr 1.2fr 1.5fr;padding:13px 18px;border-bottom:0.5px solid #f0f2f5;align-items:center;transition:background 0.12s}
+.row:last-child{border-bottom:none}
+.row:hover{background:#fafbfc}
+.area-name{font-size:13px;font-weight:500;color:#1a1a1a;line-height:1.4}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:4px 11px;border-radius:20px;cursor:pointer;border:none;outline:none;transition:opacity 0.15s,transform 0.1s;user-select:none;white-space:nowrap}
+.chip:hover{opacity:0.8}.chip:active{transform:scale(0.97)}
+.chip.pendente{background:#fef3c7;color:#92400e}
+.chip.andamento{background:#dbeafe;color:#1e40af}
+.chip.entregue{background:#dcfce7;color:#14532d}
+.chip.bloqueado{background:#fee2e2;color:#991b1b}
+.dot{width:6px;height:6px;border-radius:50%;background:currentColor;flex-shrink:0}
+.date-cell{font-size:12px;color:#6b7280}
+.resp-cell{font-size:12px;color:#374151;line-height:1.4}
+.obs-input{font-size:12px;color:#6b7280;background:transparent;border:none;outline:none;width:100%;padding:4px 6px;border-radius:4px;cursor:text}
+.obs-input:focus{background:#f0f4ff;color:#1a1a1a}
+.obs-input::placeholder{color:#d1d5db}
+.footer{margin-top:1rem;display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#9ca3af;padding:0 4px}
+.saving{color:#b45309;font-weight:500}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="brand">
+      <div class="brand-dot">FC</div>
+      <div>
+        <div class="brand-name">Fechamento Contábil — Priner</div>
+        <div class="brand-sub">Controle de entregas por área</div>
+      </div>
+    </div>
+    <div class="month-badge">Agosto / 2026</div>
+  </div>
+
+  <div class="cards">
+    <div class="card"><div class="card-label">Total de atividades</div><div class="card-val" id="tot">—</div></div>
+    <div class="card"><div class="card-label">Entregues</div><div class="card-val green" id="cnt-entregue">—</div></div>
+    <div class="card"><div class="card-label">Em andamento</div><div class="card-val amber" id="cnt-andamento">—</div></div>
+    <div class="card"><div class="card-label">Pendentes</div><div class="card-val red" id="cnt-pendente">—</div></div>
+  </div>
+
+  <div class="prog-wrap">
+    <div class="prog-label">
+      <span>Progresso geral do fechamento</span>
+      <span id="pct">—</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="fill" style="width:0%"></div></div>
+  </div>
+
+  <div class="table-wrap">
+    <div class="table-head">
+      <div class="th">Atividade</div>
+      <div class="th">Área responsável</div>
+      <div class="th">Prazo</div>
+      <div class="th">Status</div>
+      <div class="th">Observação</div>
+    </div>
+    <div id="rows"><div style="padding:2rem;text-align:center;color:#9ca3af;font-size:13px;">Carregando...</div></div>
+  </div>
+
+  <div class="footer">
+    <span>Clique no status para alterá-lo · Observação é editável</span>
+    <span id="last-upd"></span>
+  </div>
+</div>
+
+<script>
+const cycle={pendente:"andamento",andamento:"entregue",entregue:"bloqueado",bloqueado:"pendente"};
+const label={pendente:"Pendente",andamento:"Em andamento",entregue:"Entregue",bloqueado:"Bloqueado"};
+let areas=[];
+let obsTimers={};
+
+async function load(){
+  try{
+    const r=await fetch('/api/status');
+    areas=await r.json();
+    render();
+  }catch(e){
+    document.getElementById('rows').innerHTML='<div style="padding:2rem;text-align:center;color:#b91c1c;font-size:13px;">Erro ao carregar dados.</div>';
+  }
+}
+
+function recalc(){
+  const e=areas.filter(a=>a.status==="entregue").length;
+  const an=areas.filter(a=>a.status==="andamento").length;
+  const p=areas.filter(a=>a.status==="pendente"||a.status==="bloqueado").length;
+  document.getElementById("tot").textContent=areas.length;
+  document.getElementById("cnt-entregue").textContent=e;
+  document.getElementById("cnt-andamento").textContent=an;
+  document.getElementById("cnt-pendente").textContent=p;
+  const pct=Math.round((e/areas.length)*100);
+  document.getElementById("pct").textContent=pct+"%";
+  document.getElementById("fill").style.width=pct+"%";
+  const now=new Date();
+  document.getElementById("last-upd").textContent="Atualizado às "+now.getHours().toString().padStart(2,"0")+":"+now.getMinutes().toString().padStart(2,"0");
+}
+
+function render(){
+  const wrap=document.getElementById("rows");
+  wrap.innerHTML="";
+  areas.forEach((a,i)=>{
+    const row=document.createElement("div");
+    row.className="row";
+    row.innerHTML=`
+      <div class="area-name">${a.name}</div>
+      <div class="resp-cell">${a.resp}</div>
+      <div class="date-cell">${a.prazo}</div>
+      <div>
+        <button class="chip ${a.status}" id="chip-${i}" onclick="toggle(${i})">
+          <span class="dot"></span>${label[a.status]}
+        </button>
+      </div>
+      <div><input class="obs-input" id="obs-${i}" value="${a.obs||''}" placeholder="Observação..." oninput="scheduleObs(${i},this.value)"/></div>
+    `;
+    wrap.appendChild(row);
+  });
+  recalc();
+}
+
+async function toggle(i){
+  areas[i].status=cycle[areas[i].status];
+  const btn=document.getElementById('chip-'+i);
+  btn.className='chip '+areas[i].status;
+  btn.innerHTML=`<span class="dot"></span>${label[areas[i].status]}`;
+  recalc();
+  await fetch('/api/status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({index:i,field:'status',value:areas[i].status})});
+}
+
+function scheduleObs(i,val){
+  areas[i].obs=val;
+  clearTimeout(obsTimers[i]);
+  obsTimers[i]=setTimeout(async()=>{
+    await fetch('/api/status',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({index:i,field:'obs',value:val})});
+  },800);
+}
+
+load();
+setInterval(load,30000);
+</script>
+</body>
+</html>
