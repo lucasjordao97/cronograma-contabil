@@ -6,23 +6,30 @@
 <title>Fechamento do Faturamento – Priner</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #f4f6f4; color: #1a2e1a; min-height: 100vh; }
 
+  /* ── Header branco ── */
   header {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-    color: white;
-    padding: 18px 32px;
+    background: #ffffff;
+    color: #1a2e1a;
+    padding: 14px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    border-bottom: 2px solid #e2e8e2;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
   }
-  .header-left { display: flex; align-items: center; gap: 16px; }
-  .priner-logo { height: 38px; width: auto; flex-shrink: 0; }
-  header h1 { font-size: 20px; font-weight: 600; letter-spacing: 0.3px; }
-  header .sub { font-size: 13px; color: #a0aec0; margin-top: 2px; }
+  .header-left { display: flex; align-items: center; gap: 18px; }
+  .priner-logo { height: 36px; width: auto; flex-shrink: 0; }
+  .header-divider {
+    width: 1px; height: 32px;
+    background: #d0dcd0;
+    flex-shrink: 0;
+  }
+  header h1 { font-size: 17px; font-weight: 700; color: #1B5E50; letter-spacing: 0.2px; }
+  header .sub { font-size: 12px; color: #7a9a7a; margin-top: 2px; }
   .badge-mes {
-    background: #e53e3e;
+    background: #1B5E50;
     color: white;
     padding: 6px 16px;
     border-radius: 20px;
@@ -30,9 +37,10 @@
     font-weight: 600;
   }
 
+  /* ── Tabs ── */
   .tabs-bar {
     background: white;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid #e2e8e2;
     padding: 0 24px;
     display: flex;
     gap: 0;
@@ -41,21 +49,21 @@
   }
   .tabs-bar::-webkit-scrollbar { display: none; }
   .tab-btn {
-    padding: 14px 18px;
+    padding: 13px 17px;
     border: none;
     background: none;
     cursor: pointer;
     font-size: 13px;
     font-weight: 500;
-    color: #718096;
+    color: #7a9a7a;
     border-bottom: 3px solid transparent;
     white-space: nowrap;
     transition: all 0.2s;
   }
-  .tab-btn:hover { color: #2d3748; background: #f7fafc; }
-  .tab-btn.active { color: #e53e3e; border-bottom-color: #e53e3e; }
-  .tab-btn.consolidado-tab { font-weight: 700; color: #1a1a2e; }
-  .tab-btn.consolidado-tab.active { color: #e53e3e; }
+  .tab-btn:hover { color: #1B5E50; background: #f0f7f0; }
+  .tab-btn.active { color: #1B5E50; border-bottom-color: #8DC63F; font-weight: 700; }
+  .tab-btn.consolidado-tab { font-weight: 700; color: #2d3748; }
+  .tab-btn.consolidado-tab.active { color: #1B5E50; border-bottom-color: #8DC63F; }
   .tab-progress {
     display: inline-block;
     margin-left: 6px;
@@ -66,229 +74,191 @@
     border-radius: 10px;
     font-weight: 600;
   }
-  .tab-btn.active .tab-progress { background: #fff5f5; color: #e53e3e; }
+  .tab-btn.active .tab-progress { background: #e8f5e9; color: #1B5E50; }
 
-  .main { max-width: 960px; margin: 0 auto; padding: 28px 20px; }
+  .main { max-width: 980px; margin: 0 auto; padding: 28px 20px; }
 
   /* ── Consolidado ── */
   .consolidado-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
     gap: 16px;
   }
   .consolidado-card {
     background: white;
-    border-radius: 12px;
+    border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    border-top: 4px solid #e2e8f0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+    border-top: 4px solid #e2e8e2;
     transition: box-shadow 0.15s;
   }
-  .consolidado-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
-  .consolidado-card.completo { border-top-color: #38a169; }
+  .consolidado-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.10); }
+  .consolidado-card.completo { border-top-color: #8DC63F; }
   .consolidado-card.parcial  { border-top-color: #d69e2e; }
-  .consolidado-card.inicio   { border-top-color: #a0aec0; }
-  .consolidado-empresa { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+  .consolidado-card.inicio   { border-top-color: #c8d8c8; }
+  .consolidado-empresa { font-size: 15px; font-weight: 700; color: #1B5E50; margin-bottom: 8px; }
   .receita-wrap { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
-  .receita-prefix { font-size: 12px; font-weight: 700; color: #718096; white-space: nowrap; }
+  .receita-prefix { font-size: 12px; font-weight: 700; color: #7a9a7a; white-space: nowrap; }
   .receita-input {
-    flex: 1; border: 1.5px solid #e2e8f0; border-radius: 6px;
+    flex: 1; border: 1.5px solid #d0dcd0; border-radius: 6px;
     padding: 5px 8px; font-size: 13px; color: #2d3748; outline: none;
     transition: border-color 0.15s; min-width: 0;
   }
   .receita-input:focus { border-color: #8DC63F; }
-  .receita-input::placeholder { color: #cbd5e0; }
+  .receita-input::placeholder { color: #b8ccb8; }
   .consolidado-progress-bar {
-    background: #edf2f7;
+    background: #e8f0e8;
     border-radius: 99px;
-    height: 8px;
+    height: 7px;
     margin-bottom: 10px;
     overflow: hidden;
   }
   .consolidado-progress-fill {
     height: 100%;
     border-radius: 99px;
-    background: #38a169;
+    background: #8DC63F;
     transition: width 0.4s ease;
   }
   .consolidado-progress-fill.amarelo { background: #d69e2e; }
-  .consolidado-progress-fill.cinza   { background: #a0aec0; }
+  .consolidado-progress-fill.cinza   { background: #c8d8c8; }
   .consolidado-count {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin-bottom: 2px;
+    font-size: 22px; font-weight: 700; color: #1B5E50; margin-bottom: 2px;
   }
-  .consolidado-badges {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-  }
-  .mini-badge {
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: 600;
-  }
-  .mb-entregue  { background: #c6f6d5; color: #276749; }
-  .mb-andamento { background: #fefcbf; color: #744210; }
-  .mb-bloqueado { background: #fed7d7; color: #822727; }
-  .mb-pendente  { background: #edf2f7; color: #4a5568; }
+  .consolidado-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .mini-badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+  .mb-entregue  { background: #d4edda; color: #1B5E50; }
+  .mb-andamento { background: #fef3cd; color: #7a5000; }
+  .mb-bloqueado { background: #fde8e8; color: #8b2020; }
+  .mb-pendente  { background: #e8f0e8; color: #4a6a4a; }
   .consolidado-header-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 12px;
   }
-  .pct-label { font-size: 13px; font-weight: 700; color: #38a169; }
+  .pct-label { font-size: 13px; font-weight: 700; color: #8DC63F; }
   .pct-label.amarelo { color: #d69e2e; }
-  .pct-label.cinza { color: #a0aec0; }
+  .pct-label.cinza { color: #a0b8a0; }
   .ver-detalhe {
-    font-size: 11px;
-    color: #a0aec0;
-    cursor: pointer;
-    text-decoration: underline;
-    background: none;
-    border: none;
-    padding: 0;
+    font-size: 11px; color: #a0b8a0; cursor: pointer;
+    text-decoration: underline; background: none; border: none; padding: 0;
   }
-  .ver-detalhe:hover { color: #e53e3e; }
+  .ver-detalhe:hover { color: #1B5E50; }
 
-  /* ── Lista individual ── */
-  .summary-bar {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
-  }
+  /* ── Summary cards ── */
+  .summary-bar { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
   .stat-card {
     background: white;
     border-radius: 10px;
     padding: 14px 20px;
-    flex: 1;
-    min-width: 120px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    border-left: 4px solid #e2e8f0;
+    flex: 1; min-width: 120px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+    border-left: 4px solid #e2e8e2;
   }
-  .stat-card.verde { border-left-color: #38a169; }
+  .stat-card.verde   { border-left-color: #8DC63F; }
   .stat-card.amarelo { border-left-color: #d69e2e; }
-  .stat-card.vermelho { border-left-color: #e53e3e; }
-  .stat-card.cinza { border-left-color: #a0aec0; }
-  .stat-num { font-size: 28px; font-weight: 700; line-height: 1; }
-  .stat-label { font-size: 12px; color: #718096; margin-top: 4px; }
+  .stat-card.vermelho{ border-left-color: #e05353; }
+  .stat-card.cinza   { border-left-color: #c0d0c0; }
+  .stat-num   { font-size: 28px; font-weight: 700; line-height: 1; color: #1B5E50; }
+  .stat-label { font-size: 12px; color: #7a9a7a; margin-top: 4px; }
 
   .empresa-titulo {
-    font-size: 18px;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin-bottom: 16px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #e2e8f0;
+    font-size: 18px; font-weight: 700; color: #1B5E50;
+    margin-bottom: 16px; padding-bottom: 8px;
+    border-bottom: 2px solid #d4ead4;
   }
 
+  /* ── Item cards ── */
   .item-card {
     background: white;
     border-radius: 10px;
     margin-bottom: 10px;
-    padding: 16px 20px;
+    padding: 15px 18px;
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    border-left: 4px solid #e2e8f0;
+    border-left: 4px solid #e2e8e2;
     transition: box-shadow 0.15s;
   }
-  .item-card:hover { box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
-  .item-card.atrasado { border-left-color: #e53e3e; }
-  .item-card.entregue-card { border-left-color: #38a169; opacity: 0.85; }
-
+  .item-card:hover { box-shadow: 0 3px 10px rgba(0,0,0,0.09); }
+  .item-card.atrasado { border-left-color: #e05353; }
+  .item-card.entregue-card { border-left-color: #8DC63F; opacity: 0.85; }
   .item-info { flex: 1; min-width: 0; }
-  .item-name { font-size: 14px; font-weight: 600; color: #2d3748; line-height: 1.3; }
-  .item-meta { font-size: 12px; color: #a0aec0; margin-top: 4px; display: flex; gap: 12px; flex-wrap: wrap; }
-
+  .item-name { font-size: 14px; font-weight: 600; color: #2a3a2a; line-height: 1.3; }
+  .item-meta { font-size: 12px; color: #a0b8a0; margin-top: 4px; display: flex; gap: 12px; flex-wrap: wrap; }
   .prazo-badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
-  .prazo-ok { background: #ebf8ff; color: #2b6cb0; }
-  .prazo-atrasado { background: #fff5f5; color: #c53030; }
-
+  .prazo-ok { background: #e8f5e9; color: #1B5E50; }
+  .prazo-atrasado { background: #fde8e8; color: #8b2020; }
   .btn-status {
-    border: none;
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.15s;
-    min-width: 110px;
-    text-align: center;
+    border: none; border-radius: 8px; padding: 8px 14px;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    white-space: nowrap; transition: all 0.15s;
+    min-width: 110px; text-align: center;
   }
   .btn-status:hover { filter: brightness(0.92); }
-  .s-pendente  { background: #edf2f7; color: #4a5568; }
-  .s-andamento { background: #fefcbf; color: #744210; }
-  .s-entregue  { background: #c6f6d5; color: #276749; }
-  .s-bloqueado { background: #fed7d7; color: #822727; }
+  .s-pendente  { background: #e8f0e8; color: #4a6a4a; }
+  .s-andamento { background: #fef3cd; color: #7a5000; }
+  .s-entregue  { background: #d4edda; color: #1B5E50; }
+  .s-bloqueado { background: #fde8e8; color: #8b2020; }
+  .entregue-info { font-size: 11px; color: #8DC63F; margin-top: 4px; font-style: italic; }
 
-  .entregue-info { font-size: 11px; color: #38a169; margin-top: 4px; font-style: italic; }
-
+  /* ── Modal ── */
   .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.55);
-    z-index: 1000;
-    align-items: center;
-    justify-content: center;
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.45); z-index: 1000;
+    align-items: center; justify-content: center;
   }
   .modal-overlay.open { display: flex; }
   .modal {
-    background: white;
-    border-radius: 14px;
-    padding: 32px;
-    width: 90%;
-    max-width: 420px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    background: white; border-radius: 14px; padding: 32px;
+    width: 90%; max-width: 420px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    border-top: 4px solid #8DC63F;
   }
-  .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #1a1a2e; }
-  .modal p { font-size: 13px; color: #718096; margin-bottom: 20px; }
+  .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: #1B5E50; }
+  .modal p { font-size: 13px; color: #7a9a7a; margin-bottom: 20px; }
   .modal input {
-    width: 100%;
-    padding: 12px 14px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 14px;
-    outline: none;
-    margin-bottom: 16px;
+    width: 100%; padding: 12px 14px;
+    border: 2px solid #d0dcd0; border-radius: 8px;
+    font-size: 14px; outline: none; margin-bottom: 16px;
     transition: border-color 0.15s;
   }
-  .modal input:focus { border-color: #e53e3e; }
+  .modal input:focus { border-color: #8DC63F; }
   .modal-btns { display: flex; gap: 10px; }
   .btn-confirmar {
-    flex: 1; background: #e53e3e; color: white; border: none;
-    padding: 11px; border-radius: 8px; font-size: 14px; font-weight: 600;
-    cursor: pointer; transition: background 0.15s;
+    flex: 1; background: #1B5E50; color: white; border: none;
+    padding: 11px; border-radius: 8px; font-size: 14px;
+    font-weight: 600; cursor: pointer; transition: background 0.15s;
   }
-  .btn-confirmar:hover { background: #c53030; }
+  .btn-confirmar:hover { background: #145044; }
   .btn-cancelar {
-    flex: 1; background: #edf2f7; color: #4a5568; border: none;
-    padding: 11px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer;
+    flex: 1; background: #e8f0e8; color: #4a6a4a; border: none;
+    padding: 11px; border-radius: 8px; font-size: 14px;
+    font-weight: 600; cursor: pointer;
   }
-  .btn-cancelar:hover { background: #e2e8f0; }
+  .btn-cancelar:hover { background: #d4e4d4; }
 
-  .loading { text-align: center; padding: 60px 20px; color: #a0aec0; font-size: 15px; }
-  .last-update { font-size: 11px; color: #a0aec0; text-align: right; margin-top: 20px; }
+  .loading { text-align: center; padding: 60px 20px; color: #a0b8a0; font-size: 15px; }
+  .last-update { font-size: 11px; color: #a0b8a0; text-align: right; margin-top: 20px; }
 </style>
 </head>
 <body>
 
 <header>
   <div class="header-left">
-    <svg class="priner-logo" viewBox="0 0 176 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <polygon points="2,19 15,3 21,3 8,19 21,35 15,35" fill="#8DC63F"/>
-      <polygon points="14,19 27,3 33,3 20,19 33,35 27,35" fill="#8DC63F"/>
-      <text x="44" y="27" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="white" letter-spacing="-0.3">priner</text>
-      <circle cx="101" cy="7" r="3.2" fill="#8DC63F"/>
+    <!-- Logo Priner: chevrons verde lima + "priner" em teal escuro -->
+    <svg class="priner-logo" viewBox="0 0 170 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Chevron 1 -->
+      <polygon points="2,20 16,4 22,4 8,20 22,36 16,36" fill="#8DC63F"/>
+      <!-- Chevron 2 -->
+      <polygon points="15,20 29,4 35,4 21,20 35,36 29,36" fill="#8DC63F"/>
+      <!-- Wordmark "priner" em teal escuro -->
+      <text x="45" y="28" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700" fill="#1B5E50" letter-spacing="-0.5">priner</text>
+      <!-- ponto verde acima do "i" -->
+      <circle cx="99" cy="9" r="3" fill="#8DC63F"/>
     </svg>
+    <div class="header-divider"></div>
     <div>
       <h1>Fechamento do Faturamento</h1>
       <div class="sub">Grupo Priner — acompanhamento em tempo real</div>
@@ -443,7 +413,7 @@ function renderConsolidado() {
               oninput="digitarReceita('${c.id}', this.value)"
               onclick="event.stopPropagation()"/>
           </div>
-          <div class="consolidado-count">${ent}<span style="font-size:14px;font-weight:400;color:#718096;">/${tot}</span></div>
+          <div class="consolidado-count">${ent}<span style="font-size:14px;font-weight:400;color:#7a9a7a;">/${tot}</span></div>
         </div>
         <div style="text-align:right;margin-left:12px;">
           <div class="pct-label ${corPct}">${pct}%</div>
@@ -460,12 +430,12 @@ function renderConsolidado() {
   document.getElementById('lista').innerHTML = `
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
       <div>
-        <div style="font-size:22px;font-weight:700;color:#1a1a2e;">Visão Geral do Grupo</div>
-        <div style="font-size:13px;color:#718096;margin-top:2px;">${entregueGeral} de ${totalGeral} itens entregues no total</div>
+        <div style="font-size:22px;font-weight:700;color:#1B5E50;">Visão Geral do Grupo</div>
+        <div style="font-size:13px;color:#7a9a7a;margin-top:2px;">${entregueGeral} de ${totalGeral} itens entregues no total</div>
       </div>
-      <div style="background:white;border-radius:10px;padding:12px 20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);text-align:center;">
-        <div style="font-size:28px;font-weight:700;color:${pctGeral===100?'#38a169':pctGeral>0?'#d69e2e':'#a0aec0'}">${pctGeral}%</div>
-        <div style="font-size:11px;color:#718096;">conclusão geral</div>
+      <div style="background:white;border-radius:10px;padding:12px 20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);text-align:center;border-top:3px solid #8DC63F;">
+        <div style="font-size:28px;font-weight:700;color:${pctGeral===100?'#8DC63F':pctGeral>0?'#d69e2e':'#a0b8a0'}">${pctGeral}%</div>
+        <div style="font-size:11px;color:#7a9a7a;">conclusão geral</div>
       </div>
     </div>
     <div class="consolidado-grid">${cardsHTML}</div>
