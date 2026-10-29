@@ -366,8 +366,9 @@ function confirmarEntrega() {
   const nome = document.getElementById('modalNome').value.trim();
   if (!nome) { alert('Por favor, informe seu nome.'); return; }
   const agora = new Date().toLocaleString('pt-BR');
+  const idx = pendingIndex;
   fecharModal();
-  salvarStatus(pendingIndex, { status: 'entregue', entregue_por: nome, entregue_em: agora });
+  salvarStatus(idx, { status: 'entregue', entregue_por: nome, entregue_em: agora });
 }
 
 document.getElementById('modalNome').addEventListener('keydown', e => {
