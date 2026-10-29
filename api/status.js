@@ -1,44 +1,87 @@
 import { kv } from '@vercel/kv';
 
-const DEFAULT = [
-  {name:"Folha de Pagamento",resp:"Gente e Gestão",prazo:"03/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Rateios Operações",resp:"DISMAT",prazo:"04/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Envio da mobilização/desmobilização",resp:"Gente e Gestão",prazo:"04/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Fechamento – Faturamento",resp:"Controladoria – Faturamento",prazo:"04/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Fechamento - Notas fiscais de entrada",resp:"Controladoria – Fiscal",prazo:"04/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Reclassificação - área de apoio estratégico",resp:"Gestores das áreas de apoio estratégico",prazo:"06/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Reclassificação - centro de custo e obra",resp:"Gestores das filiais e coligadas",prazo:"06/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Fechamento – Financeiro",resp:"Financeiro – CAP e Tesouraria",prazo:"08/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Fechamento – Contas a receber",resp:"Financeiro - CAR",prazo:"08/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Contabilidade – Finalização dos lançamentos de custo",resp:"Controladoria - Contabilidade",prazo:"08/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Rateio das despesas administrativas",resp:"Controladoria - Contabilidade",prazo:"08/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Reunião de análise de resultado com gestores das UNs",resp:"Planejamento e Orçamento",prazo:"10-11/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Ajustes finais e reclassificações",resp:"Gente e Gestão / Gestores estratégico / Filiais",prazo:"12/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Apuração dos impostos e consolidação – Controladas",resp:"Controladoria - Contabilidade",prazo:"13/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Apuração impostos, consolidação e envio do fechamento final",resp:"Controladoria – Contabilidade",prazo:"17/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Divulgação do CAPEX - Consolidado",resp:"Controladoria - Contabilidade",prazo:"18/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-  {name:"Divulgação do resultado - Consolidado",resp:"Planejamento e Orçamento",prazo:"18/09",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
-];
+const DEFAULTS = {
+  priner_servicos: [
+    {name:"Painel Intercompany",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Eliminações Intercompany (Template)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Provisionamentos BM's",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Relatórios Faturamento vs Contabil",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cubo - Faturamento",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Lançamento Conta Transitória (Cancelamentos Pendentes)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Reversão Conta Transitória (Cancelamentos Efetivados)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cancelamentos e Devoluções",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Comunicado Cancelamentos",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Divulgação da Receita Bruta",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+  ],
+  priner_locacao: [
+    {name:"Emissão de NFS-e (Rental vs Semep)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Provisionamentos BM's",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Relatórios Faturamento vs Contabil",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cubo - Faturamento",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cancelamentos e Devoluções",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+  ],
+  smartcoat: [
+    {name:"Lançamento Conta Transitória (Cancelamentos Pendentes)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Reversão Conta Transitória (Cancelamentos Efetivados)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Provisionamentos BM's",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Relatórios Faturamento vs Contabil",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cubo - Faturamento",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cancelamentos e Devoluções",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+  ],
+  gmaia: [
+    {name:"Emissão de NFS-e (Gmaia vs Semep)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Relatórios Faturamento vs Contabil",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Provisionamentos BM's",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cubo - Faturamento",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cancelamentos e Devoluções",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+  ],
+  welding: [
+    {name:"Receita Diferida (repassamos, apropriação feita pela contabilidade)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Provisionamentos - BM's (PLA provisão e estorno)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Relatórios Faturamento vs Contabil",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cubo - Faturamento",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cancelamentos e Devoluções",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+  ],
+  real_estruturas: [
+    {name:"Provisionamentos - BM's",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Relatórios Faturamento vs Contabil",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cubo - Faturamento",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Cancelamento e Devoluções",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+  ],
+  semep: [
+    {name:"Provisionamentos - BM's",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Faturamento vs Contabil",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Template (Planejamento)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+  ],
+};
+
+const VALID = Object.keys(DEFAULTS);
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
   if (req.method === 'OPTIONS') return res.status(200).end();
 
+  const coligada = req.query.coligada || (req.body && req.body.coligada);
+  if (!coligada || !VALID.includes(coligada)) {
+    return res.status(400).json({ error: 'coligada inválida' });
+  }
+
+  const key = `fechamento_fat_${coligada}_out2026`;
+
   if (req.method === 'GET') {
-    const data = await kv.get('fechamento_set_2026');
-    return res.json(data || DEFAULT);
+    const data = await kv.get(key);
+    return res.json(data || DEFAULTS[coligada]);
   }
 
   if (req.method === 'POST') {
     const { index, fields } = req.body;
-    let data = await kv.get('fechamento_set_2026') || JSON.parse(JSON.stringify(DEFAULT));
+    let data = await kv.get(key) || JSON.parse(JSON.stringify(DEFAULTS[coligada]));
     if (index >= 0 && index < data.length && fields) {
       Object.assign(data[index], fields);
     }
-    await kv.set('fechamento_set_2026', data);
+    await kv.set(key, data);
     return res.json({ ok: true, data });
   }
 
