@@ -11,14 +11,16 @@
   header {
     background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
     color: white;
-    padding: 20px 32px;
+    padding: 18px 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .priner-logo { height: 38px; width: auto; flex-shrink: 0; }
   header h1 { font-size: 20px; font-weight: 600; letter-spacing: 0.3px; }
-  header .sub { font-size: 13px; color: #a0aec0; margin-top: 3px; }
+  header .sub { font-size: 13px; color: #a0aec0; margin-top: 2px; }
   .badge-mes {
     background: #e53e3e;
     color: white;
@@ -39,7 +41,7 @@
   }
   .tabs-bar::-webkit-scrollbar { display: none; }
   .tab-btn {
-    padding: 14px 20px;
+    padding: 14px 18px;
     border: none;
     background: none;
     cursor: pointer;
@@ -52,6 +54,8 @@
   }
   .tab-btn:hover { color: #2d3748; background: #f7fafc; }
   .tab-btn.active { color: #e53e3e; border-bottom-color: #e53e3e; }
+  .tab-btn.consolidado-tab { font-weight: 700; color: #1a1a2e; }
+  .tab-btn.consolidado-tab.active { color: #e53e3e; }
   .tab-progress {
     display: inline-block;
     margin-left: 6px;
@@ -66,6 +70,92 @@
 
   .main { max-width: 960px; margin: 0 auto; padding: 28px 20px; }
 
+  /* ── Consolidado ── */
+  .consolidado-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .consolidado-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border-top: 4px solid #e2e8f0;
+    transition: box-shadow 0.15s;
+  }
+  .consolidado-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.12); }
+  .consolidado-card.completo { border-top-color: #38a169; }
+  .consolidado-card.parcial  { border-top-color: #d69e2e; }
+  .consolidado-card.inicio   { border-top-color: #a0aec0; }
+  .consolidado-empresa { font-size: 15px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px; }
+  .receita-wrap { display: flex; align-items: center; gap: 6px; margin-bottom: 12px; }
+  .receita-prefix { font-size: 12px; font-weight: 700; color: #718096; white-space: nowrap; }
+  .receita-input {
+    flex: 1; border: 1.5px solid #e2e8f0; border-radius: 6px;
+    padding: 5px 8px; font-size: 13px; color: #2d3748; outline: none;
+    transition: border-color 0.15s; min-width: 0;
+  }
+  .receita-input:focus { border-color: #8DC63F; }
+  .receita-input::placeholder { color: #cbd5e0; }
+  .consolidado-progress-bar {
+    background: #edf2f7;
+    border-radius: 99px;
+    height: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+  .consolidado-progress-fill {
+    height: 100%;
+    border-radius: 99px;
+    background: #38a169;
+    transition: width 0.4s ease;
+  }
+  .consolidado-progress-fill.amarelo { background: #d69e2e; }
+  .consolidado-progress-fill.cinza   { background: #a0aec0; }
+  .consolidado-count {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 2px;
+  }
+  .consolidado-badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .mini-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .mb-entregue  { background: #c6f6d5; color: #276749; }
+  .mb-andamento { background: #fefcbf; color: #744210; }
+  .mb-bloqueado { background: #fed7d7; color: #822727; }
+  .mb-pendente  { background: #edf2f7; color: #4a5568; }
+  .consolidado-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .pct-label { font-size: 13px; font-weight: 700; color: #38a169; }
+  .pct-label.amarelo { color: #d69e2e; }
+  .pct-label.cinza { color: #a0aec0; }
+  .ver-detalhe {
+    font-size: 11px;
+    color: #a0aec0;
+    cursor: pointer;
+    text-decoration: underline;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .ver-detalhe:hover { color: #e53e3e; }
+
+  /* ── Lista individual ── */
   .summary-bar {
     display: flex;
     gap: 12px;
@@ -117,12 +207,7 @@
   .item-name { font-size: 14px; font-weight: 600; color: #2d3748; line-height: 1.3; }
   .item-meta { font-size: 12px; color: #a0aec0; margin-top: 4px; display: flex; gap: 12px; flex-wrap: wrap; }
 
-  .prazo-badge {
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: 600;
-  }
+  .prazo-badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
   .prazo-ok { background: #ebf8ff; color: #2b6cb0; }
   .prazo-atrasado { background: #fff5f5; color: #c53030; }
 
@@ -144,12 +229,7 @@
   .s-entregue  { background: #c6f6d5; color: #276749; }
   .s-bloqueado { background: #fed7d7; color: #822727; }
 
-  .entregue-info {
-    font-size: 11px;
-    color: #38a169;
-    margin-top: 4px;
-    font-style: italic;
-  }
+  .entregue-info { font-size: 11px; color: #38a169; margin-top: 4px; font-style: italic; }
 
   .modal-overlay {
     display: none;
@@ -202,9 +282,17 @@
 <body>
 
 <header>
-  <div>
-    <h1>📊 Fechamento do Faturamento</h1>
-    <div class="sub">Grupo Priner — acompanhamento em tempo real</div>
+  <div class="header-left">
+    <svg class="priner-logo" viewBox="0 0 176 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="2,19 15,3 21,3 8,19 21,35 15,35" fill="#8DC63F"/>
+      <polygon points="14,19 27,3 33,3 20,19 33,35 27,35" fill="#8DC63F"/>
+      <text x="44" y="27" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="white" letter-spacing="-0.3">priner</text>
+      <circle cx="101" cy="7" r="3.2" fill="#8DC63F"/>
+    </svg>
+    <div>
+      <h1>Fechamento do Faturamento</h1>
+      <div class="sub">Grupo Priner — acompanhamento em tempo real</div>
+    </div>
   </div>
   <div class="badge-mes">Outubro / 2026</div>
 </header>
@@ -212,8 +300,8 @@
 <div class="tabs-bar" id="tabsBar"></div>
 
 <div class="main">
-  <div class="summary-bar" id="summaryBar"></div>
-  <div class="empresa-titulo" id="empresaTitulo"></div>
+  <div id="summaryBar" class="summary-bar"></div>
+  <div id="empresaTitulo" class="empresa-titulo" style="display:none"></div>
   <div id="lista"><div class="loading">Carregando...</div></div>
   <div class="last-update" id="lastUpdate"></div>
 </div>
@@ -244,13 +332,20 @@ const COLIGADAS = [
 const CICLO = ['pendente', 'andamento', 'entregue', 'bloqueado'];
 const LABELS = { pendente: 'Pendente', andamento: 'Em andamento', entregue: '✔ Entregue', bloqueado: '⚠ Bloqueado' };
 
-let tabAtiva = 'priner_servicos';
+let tabAtiva = 'consolidado';
 let dadosCache = {};
+let receitaCache = {};
 let pendingIndex = null;
+let receitaTimer = {};
 
+// ─── Abas ─────────────────────────────────────────────────────────────────────
 function renderTabs() {
   const bar = document.getElementById('tabsBar');
-  bar.innerHTML = COLIGADAS.map(c => {
+  const consolidadoBtn = `<button class="tab-btn consolidado-tab ${tabAtiva === 'consolidado' ? 'active' : ''}" onclick="trocarTab('consolidado')">
+    🗂 Consolidado
+  </button>`;
+
+  const empresasBtns = COLIGADAS.map(c => {
     const itens = dadosCache[c.id] || [];
     const ent = itens.filter(i => i.status === 'entregue').length;
     const tot = itens.length;
@@ -259,12 +354,16 @@ function renderTabs() {
       ${c.nome} <span class="tab-progress">${prog}</span>
     </button>`;
   }).join('');
+
+  bar.innerHTML = consolidadoBtn + empresasBtns;
 }
 
 function trocarTab(id) {
   tabAtiva = id;
   renderTabs();
-  if (dadosCache[id]) {
+  if (id === 'consolidado') {
+    renderConsolidado();
+  } else if (dadosCache[id]) {
     renderLista(dadosCache[id]);
   } else {
     document.getElementById('lista').innerHTML = '<div class="loading">Carregando...</div>';
@@ -272,6 +371,7 @@ function trocarTab(id) {
   }
 }
 
+// ─── Carga ─────────────────────────────────────────────────────────────────────
 async function carregarColigada(id) {
   try {
     const r = await fetch(`/api/status?coligada=${id}`);
@@ -279,21 +379,123 @@ async function carregarColigada(id) {
     dadosCache[id] = data;
     renderTabs();
     if (tabAtiva === id) renderLista(data);
+    if (tabAtiva === 'consolidado') renderConsolidado();
   } catch(e) {
     if (tabAtiva === id) document.getElementById('lista').innerHTML = '<div class="loading">Erro ao carregar. Recarregue a página.</div>';
   }
 }
 
-async function carregarTodas() {
-  await Promise.all(COLIGADAS.map(c => carregarColigada(c.id)));
-  document.getElementById('lastUpdate').textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR');
+async function carregarReceita() {
+  try {
+    const r = await fetch('/api/status?action=receita');
+    receitaCache = await r.json();
+  } catch(e) {}
 }
 
+async function carregarTodas() {
+  await Promise.all([
+    ...COLIGADAS.map(c => carregarColigada(c.id)),
+    carregarReceita(),
+  ]);
+  document.getElementById('lastUpdate').textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR');
+  if (tabAtiva === 'consolidado') renderConsolidado();
+}
+
+// ─── Consolidado ──────────────────────────────────────────────────────────────
+function renderConsolidado() {
+  document.getElementById('summaryBar').innerHTML = '';
+  document.getElementById('empresaTitulo').style.display = 'none';
+
+  const totalGeral = COLIGADAS.reduce((acc, c) => acc + (dadosCache[c.id]||[]).length, 0);
+  const entregueGeral = COLIGADAS.reduce((acc, c) => acc + (dadosCache[c.id]||[]).filter(i=>i.status==='entregue').length, 0);
+  const pctGeral = totalGeral ? Math.round(entregueGeral / totalGeral * 100) : 0;
+
+  const cardsHTML = COLIGADAS.map(c => {
+    const itens = dadosCache[c.id] || [];
+    const tot = itens.length;
+    const ent = itens.filter(i => i.status === 'entregue').length;
+    const and = itens.filter(i => i.status === 'andamento').length;
+    const blo = itens.filter(i => i.status === 'bloqueado').length;
+    const pen = itens.filter(i => i.status === 'pendente').length;
+    const pct = tot ? Math.round(ent / tot * 100) : 0;
+
+    const corCard = pct === 100 ? 'completo' : pct > 0 || and > 0 ? 'parcial' : 'inicio';
+    const corFill = pct === 100 ? '' : pct > 0 || and > 0 ? 'amarelo' : 'cinza';
+    const corPct  = pct === 100 ? '' : pct > 0 || and > 0 ? 'amarelo' : 'cinza';
+
+    const badges = [
+      ent  ? `<span class="mini-badge mb-entregue">${ent} entregue${ent!==1?'s':''}</span>` : '',
+      and  ? `<span class="mini-badge mb-andamento">${and} andamento</span>` : '',
+      blo  ? `<span class="mini-badge mb-bloqueado">${blo} bloqueado${blo!==1?'s':''}</span>` : '',
+      pen  ? `<span class="mini-badge mb-pendente">${pen} pendente${pen!==1?'s':''}</span>` : '',
+    ].filter(Boolean).join('');
+
+    const rbVal = receitaCache[c.id] || '';
+
+    return `<div class="consolidado-card ${corCard}">
+      <div class="consolidado-header-row">
+        <div style="flex:1;min-width:0;">
+          <div class="consolidado-empresa">${c.nome}</div>
+          <div class="receita-wrap">
+            <span class="receita-prefix">R$</span>
+            <input class="receita-input" type="text" placeholder="Receita bruta"
+              value="${rbVal}"
+              oninput="digitarReceita('${c.id}', this.value)"
+              onclick="event.stopPropagation()"/>
+          </div>
+          <div class="consolidado-count">${ent}<span style="font-size:14px;font-weight:400;color:#718096;">/${tot}</span></div>
+        </div>
+        <div style="text-align:right;margin-left:12px;">
+          <div class="pct-label ${corPct}">${pct}%</div>
+          <button class="ver-detalhe" onclick="trocarTab('${c.id}')">ver detalhes →</button>
+        </div>
+      </div>
+      <div class="consolidado-progress-bar">
+        <div class="consolidado-progress-fill ${corFill}" style="width:${pct}%"></div>
+      </div>
+      <div class="consolidado-badges">${badges || '<span class="mini-badge mb-pendente">Sem dados</span>'}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('lista').innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+      <div>
+        <div style="font-size:22px;font-weight:700;color:#1a1a2e;">Visão Geral do Grupo</div>
+        <div style="font-size:13px;color:#718096;margin-top:2px;">${entregueGeral} de ${totalGeral} itens entregues no total</div>
+      </div>
+      <div style="background:white;border-radius:10px;padding:12px 20px;box-shadow:0 1px 3px rgba(0,0,0,0.08);text-align:center;">
+        <div style="font-size:28px;font-weight:700;color:${pctGeral===100?'#38a169':pctGeral>0?'#d69e2e':'#a0aec0'}">${pctGeral}%</div>
+        <div style="font-size:11px;color:#718096;">conclusão geral</div>
+      </div>
+    </div>
+    <div class="consolidado-grid">${cardsHTML}</div>
+  `;
+}
+
+// ─── Receita Bruta (Redis) ────────────────────────────────────────────────────
+function digitarReceita(id, value) {
+  receitaCache[id] = value;
+  clearTimeout(receitaTimer[id]);
+  receitaTimer[id] = setTimeout(() => salvarReceita(id, value), 800);
+}
+
+async function salvarReceita(id, value) {
+  try {
+    await fetch('/api/status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'receita', coligada: id, value })
+    });
+  } catch(e) { console.error('Erro ao salvar receita:', e); }
+}
+
+// ─── Lista individual ─────────────────────────────────────────────────────────
 function renderLista(itens) {
   const empresa = COLIGADAS.find(c => c.id === tabAtiva);
-  document.getElementById('empresaTitulo').textContent = empresa.nome;
+  const titulo = document.getElementById('empresaTitulo');
+  titulo.textContent = empresa.nome;
+  titulo.style.display = '';
 
-  const tot = itens.length;
   const ent = itens.filter(i => i.status === 'entregue').length;
   const and = itens.filter(i => i.status === 'andamento').length;
   const blo = itens.filter(i => i.status === 'bloqueado').length;
@@ -340,6 +542,7 @@ function parsePrazo(prazo) {
   return new Date(new Date().getFullYear(), parseInt(m) - 1, parseInt(d));
 }
 
+// ─── Ciclo de status ──────────────────────────────────────────────────────────
 function ciclarStatus(idx) {
   const itens = dadosCache[tabAtiva];
   const atual = itens[idx].status;
@@ -357,6 +560,7 @@ function ciclarStatus(idx) {
   salvarStatus(idx, { status: proximo });
 }
 
+// ─── Modal ────────────────────────────────────────────────────────────────────
 function fecharModal() {
   document.getElementById('modalOverlay').classList.remove('open');
   pendingIndex = null;
@@ -376,6 +580,7 @@ document.getElementById('modalNome').addEventListener('keydown', e => {
   if (e.key === 'Escape') fecharModal();
 });
 
+// ─── Salvar status ────────────────────────────────────────────────────────────
 async function salvarStatus(idx, fields) {
   dadosCache[tabAtiva] = dadosCache[tabAtiva].map((item, i) =>
     i === idx ? { ...item, ...fields } : item
@@ -391,7 +596,9 @@ async function salvarStatus(idx, fields) {
   } catch(e) { console.error('Erro ao salvar:', e); }
 }
 
+// ─── Init ─────────────────────────────────────────────────────────────────────
 renderTabs();
+renderConsolidado();
 carregarTodas();
 setInterval(carregarTodas, 30000);
 </script>
