@@ -70,6 +70,25 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
+  const action = req.query.action || (req.body && req.body.action);
+
+  // ── Receita Bruta ──────────────────────────────────────────────────────────
+  if (action === 'receita') {
+    if (req.method === 'GET') {
+      const data = await redis.get('receita_bruta_out2026') || {};
+      return res.json(data);
+    }
+    if (req.method === 'POST') {
+      const { coligada, value } = req.body;
+      if (!VALID.includes(coligada)) return res.status(400).json({ error: 'coligada inválida' });
+      let data = await redis.get('receita_bruta_out2026') || {};
+      data[coligada] = value;
+      await redis.set('receita_bruta_out2026', data);
+      return res.json({ ok: true });
+    }
+  }
+
+  // ── Status das tarefas ─────────────────────────────────────────────────────
   const coligada = req.query.coligada || (req.body && req.body.coligada);
   if (!coligada || !VALID.includes(coligada)) {
     return res.status(400).json({ error: 'coligada inválida' });
