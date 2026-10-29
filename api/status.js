@@ -1,4 +1,9 @@
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
+
+const redis = new Redis({
+  url: process.env.kv2_KV_REST_API_URL,
+  token: process.env.kv2_KV_REST_API_TOKEN,
+});
 
 const DEFAULTS = {
   priner_servicos: [
@@ -71,17 +76,17 @@ export default async function handler(req, res) {
   const key = `fechamento_fat_${coligada}_out2026`;
 
   if (req.method === 'GET') {
-    const data = await kv.get(key);
+    const data = await redis.get(key);
     return res.json(data || DEFAULTS[coligada]);
   }
 
   if (req.method === 'POST') {
     const { index, fields } = req.body;
-    let data = await kv.get(key) || JSON.parse(JSON.stringify(DEFAULTS[coligada]));
+    let data = await redis.get(key) || JSON.parse(JSON.stringify(DEFAULTS[coligada]));
     if (index >= 0 && index < data.length && fields) {
       Object.assign(data[index], fields);
     }
-    await kv.set(key, data);
+    await redis.set(key, data);
     return res.json({ ok: true, data });
   }
 
