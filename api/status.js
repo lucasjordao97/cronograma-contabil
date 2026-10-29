@@ -9,6 +9,7 @@ const DEFAULTS = {
   priner_servicos: [
     {name:"Painel Intercompany",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
     {name:"Eliminações Intercompany (Template)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Memória de Calculo Intercompany (Emissão/Entrada)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
     {name:"Provisionamentos BM's",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
     {name:"Relatórios Faturamento vs Contabil",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
     {name:"Cubo - Faturamento",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
@@ -16,6 +17,7 @@ const DEFAULTS = {
     {name:"Reversão Conta Transitória (Cancelamentos Efetivados)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
     {name:"Cancelamentos e Devoluções",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
     {name:"Comunicado Cancelamentos",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
+    {name:"Relatório de MIEL (mensal contabilidade)",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
     {name:"Divulgação da Receita Bruta",resp:"",prazo:"",status:"pendente",obs:"",entregue_por:"",entregue_em:""},
   ],
   priner_locacao: [
